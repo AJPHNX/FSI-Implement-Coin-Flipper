@@ -3,6 +3,7 @@ let numberOfHeadFlips = 0
 let numberOfTailFlips = 0
 let percentHeads = 0
 let percentTails = 0
+let total = 0
 
 const flipBtn  = document.querySelector('#flip')
 const clearBtn = document.querySelector('#clear')
@@ -10,15 +11,15 @@ const pennyImg = document.querySelector('#coinImage')
 const message  = document.querySelector('#message')
 const heads    = document.querySelector('#heads') 
 const tails    = document.querySelector('#tails') 
-const headsPercent = document.querySelector('#heads_percent')
-const tailsPercent = document.querySelector('#tails_percent')
+const headsPercent = document.querySelector('#heads-percent')
+const tailsPercent = document.querySelector('#tails-percent')
 
 
 document.addEventListener('DOMContentLoaded', function () {
     
     // TODO: Add event listener and handler for flip and clear buttons
     flipBtn.addEventListener('click', function(){
-        
+        // TODO: Determine flip outcome
         let flippedHeads = Math.random() < 0.5
         console.log(flippedHeads)
             if(flippedHeads){
@@ -26,19 +27,22 @@ document.addEventListener('DOMContentLoaded', function () {
                 pennyImg.setAttribute('src','assets/images/penny-heads.jpg')
                 message.textContent ='You flipped heads'
                 numberOfHeadFlips++
+                total++
                 console.log(numberOfHeadFlips)
             }else{
                 pennyImg.setAttribute('src','assets/images/penny-tails.jpg')
                 message.textContent ='You flipped tails'
                 numberOfTailFlips++
+                total++
                 console.log(numberOfTailFlips)
             }
-            let total = numberOfHeadFlips+numberOfTailFlips
-            
+            total = numberOfHeadFlips+numberOfTailFlips
+            console.log(`Total: ${total}`)
             if (total>0){
-                percentHeads = Math.round(numberOfHeadFlips/total *100)
-                percentTails = Math.round(numberOfTailFlips/total *100)
-                console.log(percentHeads)
+                percentHeads = Math.round((numberOfHeadFlips/total) *100)
+                percentTails = Math.round((numberOfTailFlips/total) *100)
+                console.log(`Heads%: ${percentHeads}`)
+                console.log(`Tails%: ${percentTails}`)
             }
             updateScoreBoard()
         })
@@ -53,11 +57,12 @@ document.addEventListener('DOMContentLoaded', function () {
             numberOfTailFlips = 0
             percentHeads = 0
             percentTails = 0
+            total = 0
             updateScoreBoard()
             message.textContent = 'Let\'s get rolling!'
         })
     // Flip Button Click Handler
-        // TODO: Determine flip outcome
+        
         // TODO: Update image and status message in the DOM
 
         // Update the scorboard
